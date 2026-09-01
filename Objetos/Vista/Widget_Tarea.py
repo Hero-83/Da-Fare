@@ -18,9 +18,9 @@ class Widget_Tarea(QWidget):
         layout.addWidget(self.checkbox)
 
         textos = QVBoxLayout()
-        self.label_titulo = QLabel(tarea.T)
+        self.label_titulo = QLabel(tarea.titulo)
         self.label_titulo.setStyleSheet("font-weight: bold; font-size: 15px;")
-        self.label_desc = QLabel(tarea.DT)
+        self.label_desc = QLabel(tarea.descripcion)
         self.label_desc.setStyleSheet("font-size: 13px; color: #555;")
         textos.addWidget(self.label_titulo)
         textos.addWidget(self.label_desc)
@@ -30,10 +30,10 @@ class Widget_Tarea(QWidget):
 
     def al_cambiar(self, estado):
         if estado:
-            self.controlador.completar_tarea(self.tarea.ID)
+            self.controlador.completar_tarea(self.tarea.id)
         else:
-            self.controlador.descompletar_tarea(self.tarea.ID)
-        print(f"[DEBUG] ID:{self.tarea.ID} | E:{self.tarea.E} | FCOMP:{self.tarea.FCOMP}")
+            self.controlador.descompletar_tarea(self.tarea.id)
+        print(f"[DEBUG] id:{self.tarea.id} | estado:{self.tarea.estado} | fecha_completado:{self.tarea.fecha_completado}")
         self.actualizar_estilo()
 
     def actualizar_estilo(self):
@@ -43,4 +43,4 @@ class Widget_Tarea(QWidget):
             "Completado":           "color: black; background: #d0d0d0;",
             "Completo con retraso": "color: red; background: #d0d0d0;",
         }
-        self.setStyleSheet(estilos.get(self.tarea.E, ""))
+        self.setStyleSheet(estilos.get(self.tarea.estado, ""))

@@ -73,8 +73,8 @@ class Vista_Principal(QMainWindow):
             item = self.layout_tareas.takeAt(0)
             if item.widget():
                 item.widget().deleteLater()
-        for tarea in self.controlador.lista.LT:
-            print(f"[DEBUG] ID:{tarea.ID} | T:{tarea.T} | DT:{tarea.DT} | FL:{tarea.FL} | FC:{tarea.FC} | E:{tarea.E} | SUBT:{tarea.SUBT} | FCOMP:{tarea.FCOMP}")
+        for tarea in self.controlador.lista.tareas:
+            print(f"[DEBUG] id:{tarea.id} | titulo:{tarea.titulo} | descripcion:{tarea.descripcion} | fecha_limite:{tarea.fecha_limite} | fecha_creacion:{tarea.fecha_creacion} | estado:{tarea.estado} | subtareas:{tarea.subtareas} | fecha_completado:{tarea.fecha_completado}")
             widget = Widget_Tarea(tarea, self.controlador)
             self.layout_tareas.insertWidget(self.layout_tareas.count() - 1, widget)
 
