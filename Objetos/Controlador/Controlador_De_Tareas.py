@@ -9,37 +9,36 @@ class Controlador_De_Tareas:
         self.lista = Lista_Tareas()
 
     def crear_tarea(self, titulo: str, descripcion: str, fecha_limite: date):
-        tarea = Tareas(T=titulo, FL=fecha_limite, DT=descripcion)
+        tarea = Tareas(titulo=titulo, fecha_limite=fecha_limite, descripcion=descripcion)
         self.lista.agregar_tarea(tarea)
         return tarea
 
-    def obtener_tarea(self, ID: int) -> Tareas | None:
-        for tarea in self.lista.LT:
-            if tarea.ID == ID:
+    def obtener_tarea(self, id: int) -> Tareas | None:
+        for tarea in self.lista.tareas:
+            if tarea.id == id:
                 return tarea
         return None
 
-    def completar_tarea(self, ID: int):
-        tarea = self.obtener_tarea(ID)
+    def completar_tarea(self, id: int):
+        tarea = self.obtener_tarea(id)
         if tarea is None:
             return
-        tarea.FCOMP = date.today()
-        if tarea.FCOMP > tarea.FL:
-            tarea.E = "Completo con retraso"
+        tarea.fecha_completado = date.today()
+        if tarea.fecha_completado > tarea.fecha_limite:
+            tarea.estado = "Completo con retraso"
         else:
-            tarea.E = "Completado"
+            tarea.estado = "Completado"
 
     def actualizar_estado_tareas(self):
-        for tarea in self.lista.LT:
-            if tarea.E == "pendiente" and date.today() > tarea.FL:
-                tarea.E = "Atrasado"
-                tarea.DP = (date.today() - tarea.FL).days
+        for tarea in self.lista.tareas:
+            if tarea.estado == "pendiente" and date.today() > tarea.fecha_limite:
+                tarea.estado = "Atrasado"
+                tarea.dias_retraso = (date.today() - tarea.fecha_limite).days
         return None
 
-        
-    def descompletar_tarea(self, ID: int):
-        tarea = self.obtener_tarea(ID)
+    def descompletar_tarea(self, id: int):
+        tarea = self.obtener_tarea(id)
         if tarea is None:
             return
-        tarea.FCOMP = None
-        tarea.E = "Atrasado" if date.today() > tarea.FL else "pendiente"
+        tarea.fecha_completado = None
+        tarea.estado = "Atrasado" if date.today() > tarea.fecha_limite else "pendiente"
