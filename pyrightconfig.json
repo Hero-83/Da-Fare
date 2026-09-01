@@ -1,0 +1,7 @@
+{
+    "extraPaths": [
+        "Objetos/Controlador",
+        "Objetos/Modelo",
+        "Objetos/Vista"
+    ]
+}
